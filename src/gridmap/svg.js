@@ -3,8 +3,7 @@
 // SVG as string building, which needs no library (ADR-0003).
 //
 // Presentation attributes only: no <style>, no CSS, no <script>, nothing fetched from
-// another host. The file has to survive being served from public hosting, proxied by
-// GitHub's camo and rendered inside an <img>, where scripts do not run and external
+// another host. The file is rendered inside an <img>, where scripts do not run and external
 // references do not load.
 
 const ENTITIES = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }
@@ -70,8 +69,8 @@ function document({ width, height, title, children }) {
 
 /**
  * A minimal well-formedness check: balanced elements, quoted attributes, no stray markup.
- * Not a parser — enough to fail loudly if the renderer ever emits something a browser
- * would refuse, which is invisible in a string comparison.
+ * Not a parser. It exists to fail loudly if the renderer emits something a browser
+ * would refuse, which a string comparison cannot show.
  *
  * @param {string} markup
  * @returns {{ ok: true } | { ok: false, reason: string }}
